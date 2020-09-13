@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="CarbonEmissions.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CarbonEmissions.Views"
+             xmlns:ViewModels="clr-namespace:CarbonEmissions.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <ViewModels:MainViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="35" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="120" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" >
+            <MenuItem Header="_File" >
+                <MenuItem Header="_Quit" Command="{Binding QuitCommand}" />
+            </MenuItem>
+        </Menu>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <TextBlock Text="Country:" Margin="5"/>
+            <ComboBox ItemsSource="{Binding Countries}" SelectedIndex="{Binding CountryIndex, UpdateSourceTrigger=PropertyChanged}" Width="150" Margin="5"/>
+        </StackPanel>
+        <ListBox x:Name="ApplianceListBox" Grid.Row="2" ItemsSource="{Binding Appliances, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="{Binding ApplianceIndex, Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.InputBindings>
+                            <MouseBinding MouseAction="LeftDoubleClick"
+                                    Command="{Binding DataContext.SelectApplianceCommand, RelativeSource={RelativeSource AncestorType={x:Type ListBox}}}"
+                                    CommandParameter="{Binding MySourceItemId}" />
+                        </Grid.InputBindings>
+                        <StackPanel Grid.Column="0" Orientation="Vertical">
+                            <TextBlock Text="{Binding Name}" Width="{Binding ElementName=ApplianceListBox, Path=ActualWidth}"/>
+                            <TextBlock>
+                            <Run Text="Energy Use:" />
+                            <Run Text="{Binding EnergyUse, Mode=OneWay}" />
+                            <Run Text="kWh" />
+                            </TextBlock>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Use Per Year:" Margin="5"/>
+                                <Slider Value="{Binding UsePerYear}" ValueChanged="Slider_ValueChanged"  Margin="5" Width="120" IsSnapToTickEnabled="True" TickFrequency="0.25" Maximum="100"/>
+                                <TextBlock>
+                                <Run Text="{Binding UsePerYear}"/>
+                                <Run Text="hour(s)"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Power:" Margin="5"/>
+                                <Slider Value="{Binding Power}" ValueChanged="Slider_ValueChanged" Margin="5" Width="120" IsSnapToTickEnabled="True" TickFrequency="10.0" Maximum="1000"/>
+                                <TextBlock>
+                                <Run Text="{Binding Power}"/>
+                                <Run Text="W"/>
+                                </TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Star Rating:" Margin="5"/>
+                                <Slider Value="{Binding StarRating}" ValueChanged="Slider_ValueChanged" Margin="5" Width="120" IsSnapToTickEnabled="True" TickFrequency="0.5" Maximum="10"/>
+                                <TextBlock>
+                                <Run Text="{Binding StarRating}"/>
+                                <Run Text="Star(s)"/>
+                                </TextBlock>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="{Binding Description}" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <StackPanel Grid.Row="3" Orientation="Vertical">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontSize="40">
+                    <Run Text="Footprint:" />
+                    <Run Text="{Binding Footprint, Mode=OneWay}" />
+                    <Run Text="kg CO" /><Run Typography.Variants="Subscript" Text="2" />
+                    <Run Text="per year" />
+                </TextBlock>
+            </StackPanel>
+            <ProgressBar Value="{Binding Footprint, Mode=OneWay}" Minimum="0" Maximum="50" Height="50" Foreground="{Binding ProgressBarColour, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
