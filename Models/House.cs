@@ -5,6 +5,9 @@ using System.Text;
 
 namespace CarbonEmissions.Models
 {
+    /// <summary>
+    /// This will keep track of the state of the house, and the appliances that exist in it.
+    /// </summary>
     class House
     {
         #region Constructors

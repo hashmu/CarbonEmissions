@@ -3,6 +3,9 @@
     using System;
     using System.Windows.Input;
 
+    /// <summary>
+    /// A class for binding elements of the UI to actions in the ViewModel, where a parameter needs to be passed to a method.
+    /// </summary>
     public class ParameteredCommand : ICommand
     {
         private readonly Action<object> _action;

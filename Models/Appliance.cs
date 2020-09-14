@@ -5,7 +5,7 @@ using System.Text;
 namespace CarbonEmissions.Models
 {
     /// <summary>
-    /// Base class for all appliances.
+    /// Base class for all appliances. Each appliance type will inherit from this, and include any additional specific members if required.
     /// </summary>
     class Appliance
     {

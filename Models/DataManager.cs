@@ -3,17 +3,25 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 
+/// <summary>
+/// Intended to watch for changes in csv files, and load new values accordingly
+/// </summary>
 namespace CarbonEmissions.Models
 {
     class DataManager
     {
+        #region Constructors
         public DataManager()
         {
             FileUpdated(new string[] { Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Data") });
         }
+        #endregion
 
+        #region Members
         FileSystemWatcher watcher = new FileSystemWatcher();
+        #endregion
 
+        #region Methods
         public void FileUpdated(string[] args)
         {
             watcher.Path = args[0];
@@ -42,5 +50,6 @@ namespace CarbonEmissions.Models
         {
             System.Windows.MessageBox.Show($"File: {e.FullPath} {e.ChangeType}");
         }
+        #endregion
     }
 }

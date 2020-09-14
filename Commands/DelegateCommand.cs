@@ -3,6 +3,9 @@
     using System;
     using System.Windows.Input;
 
+    /// <summary>
+    /// A class for binding elements of the UI to actions in the ViewModel
+    /// </summary>
     public class DelegateCommand : ICommand
     {
         private readonly Action _action;

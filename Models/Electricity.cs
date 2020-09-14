@@ -5,13 +5,15 @@ using System.Linq;
 
 namespace CarbonEmissions.Models
 {
+    /// <summary>
+    /// Class for determining the carbon intensity used in calculations. Currently using the latest average figure for each country in the list.
+    /// </summary>
     class Electricity
     {
         #region Constructors
         public Electricity()
         {
             GetIntensities();
-
         }
         #endregion
 

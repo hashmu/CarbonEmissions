@@ -21,6 +21,7 @@ namespace CarbonEmissions.Models
 
         #region Members
         House House;
+        //Electricity may make more sense being a member of the House class. Undecided... Do people use electricity indepenent of their house? Maybe if you consider a shed or granny-flat.
         Electricity Electricity;
         #endregion
 
