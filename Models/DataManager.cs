@@ -9,7 +9,7 @@ namespace CarbonEmissions.Models
     {
         public DataManager()
         {
-            FileUpdated(new string[] { @"G:\Dev\CarbonEmissions\bin\Debug\netcoreapp3.1"});
+            FileUpdated(new string[] { Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, "Data") });
         }
 
         FileSystemWatcher watcher = new FileSystemWatcher();
